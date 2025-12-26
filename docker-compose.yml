@@ -1,0 +1,35 @@
+version: '3.8' 
+
+services:
+  backend:
+    build:
+      context: ./backend    # บอกตำแหน่งโฟลเดอร์ที่มีโค้ด Backend
+      dockerfile: Dockerfile # ชื่อไฟล์ Dockerfile ที่จะใช้ Build
+    container_name: nest_api # ตั้งชื่อคอนเทนเนอร์เพื่อให้จำง่าย
+    ports:
+      - "3001:4000" 
+    environment:
+      - PORT=4000 # ส่งค่าตัวแปรไปให้ NestJS รู้ว่าต้องรันที่พอร์ตไหน
+    networks:
+      - app-network # เชื่อมต่อเข้ากับเครือข่ายจำลอง เพื่อคุยกับบริการอื่น
+
+  frontend:
+    build:
+      context: ./frontend    # บอกตำแหน่งโฟลเดอร์ที่มีโค้ด Frontend
+      dockerfile: Dockerfile # ชื่อไฟล์ Dockerfile ที่จะใช้ Build
+    container_name: next_web # ตั้งชื่อคอนเทนเนอร์เพื่อให้จำง่าย
+    ports:
+      - "3000:3000" # เปิดทางเข้าหน้าเว็บที่พอร์ต 3000 ของเครื่อง
+    environment:
+      # URL ที่ให้ Browser ของผู้ใช้ วิ่งเข้าหา Backend ผ่านพอร์ตเครื่องนอก
+      - NEXT_PUBLIC_API_URL=http://localhost:3001 
+      # URL ที่ให้ Next.js คุยกับ Backend โดยตรงภายใน Docker (ใช้ชื่อ service)
+      - INTERNAL_API_URL=http://backend:4000 
+    depends_on:
+      - backend # สั่งให้รอ Backend รันขึ้นมาก่อน ถึงจะเริ่มรัน Frontend
+    networks:
+      - app-network # เชื่อมต่อเข้าเครือข่ายเดียวกับ Backend
+
+networks:
+  app-network:      # สร้างเครือข่ายจำลอง (เสมือนวง LAN เดียวกัน)
+    driver: bridge  # ใช้โหมดสะพานเชื่อมเพื่อให้คอนเทนเนอร์คุยกันเองได้
