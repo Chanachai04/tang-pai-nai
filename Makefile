@@ -14,25 +14,23 @@ help:
 
 # สร้าง Images
 build:
-	docker-compose build
+	docker compose build
 
 # รันระบบ
 up:
-	docker-compose up -d
-
+	docker compose up -d
 # หยุดระบบ
 down:
-	docker-compose down
+	docker compose down
 
 # ดู Log (แบบ Real-time)
 logs:
-	docker-compose logs -f
+	docker compose logs -f
 
 # รีสตาร์ท (Build ใหม่แล้วรัน)
 restart:
-	docker-compose down
-	docker-compose up -d --build
-
+	docker compose down
+	docker compose up -d --build	
 # ล้างทรัพยากรที่ค้างอยู่ในเครื่อง
 clean:
 	docker system prune -f

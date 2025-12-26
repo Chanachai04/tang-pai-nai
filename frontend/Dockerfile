@@ -1,20 +1,30 @@
-# Stage 1: Build
-FROM node:18-alpine AS builder
-WORKDIR /src/app
-COPY package*.json ./
+FROM node:20-alpine AS builder
+
+# ติดตั้ง pnpm เพื่อจัดการ library
+RUN npm install -g pnpm
+
+WORKDIR /app
+
+# คัดลอกไฟล์จัดการ library (pnpm-lock.yaml สำคัญมาก)
+COPY package.json pnpm-lock.yaml* ./
+
+# ติดตั้ง dependencies
 RUN pnpm install
+
+# คัดลอกโค้ดและ Build
 COPY . .
 RUN pnpm run build
 
-# Stage 2: Runner
-FROM node:18-alpine AS runner
+FROM node:20-alpine AS runner
+
 WORKDIR /app
+
 ENV NODE_ENV production
 
-# คัดลอกไฟล์ที่ Next.js standalone ต้องการ
-COPY --from=builder /src/app/public ./public
-COPY --from=builder /src/app/.next/standalone ./
-COPY --from=builder /src/app/.next/static ./.next/static
+# คัดลอกเฉพาะสิ่งที่ต้องใช้มาจาก builder
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 CMD ["node", "server.js"]
