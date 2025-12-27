@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AnalyticsView from "@/features/analytics/components/analytics-view";
+import TransactionExpense from "@/features/transactions/components/transaction-expense";
+import TransactionIncome from "@/features/transactions/components/transaction-income";
 
 export default function DAshboardTab() {
   return (
@@ -25,10 +27,10 @@ export default function DAshboardTab() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="income">
-          <div className="p-4">Content for รายรับ</div>
+          <TransactionIncome />
         </TabsContent>
         <TabsContent value="expense">
-          <div className="p-4">Content for รายจ่าย</div>
+          <TransactionExpense />
         </TabsContent>
         <TabsContent value="stats">
           <AnalyticsView />

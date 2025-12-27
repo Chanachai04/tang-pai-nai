@@ -121,3 +121,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ซ่อน Scrollbar สำหรับ Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ซ่อน Scrollbar สำหรับ IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
