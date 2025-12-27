@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
 import ItemFilter from "./item-filter";
+import { AnalyticsChart } from "./analytics-chart";
 
 function MockChart({ period }: { period: string }) {
   return (
@@ -24,7 +25,7 @@ export default function AnalyticsView() {
           {/* ปุ่มเลือกช่วงเวลา */}
           <ItemFilter />
         </div>
-        <MockChart period={period} />
+        <AnalyticsChart />
       </Card>
     </div>
   );
