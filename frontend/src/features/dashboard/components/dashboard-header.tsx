@@ -1,11 +1,14 @@
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 
-interface SummaryCardsProps {
+interface DashboardHeaderProps {
   income?: number;
   expenses?: number;
 }
 
-export default function SummaryCards({ income, expenses }: SummaryCardsProps) {
+export default function DashboardHeader({
+  income,
+  expenses,
+}: DashboardHeaderProps) {
   return (
     <div className="grid grid-cols-2 gap-4 mt-4">
       <Card className="p-6 text-right hover:shadow-lg transition-shadow">
