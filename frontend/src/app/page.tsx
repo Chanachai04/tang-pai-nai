@@ -1,12 +1,12 @@
-import { Card } from "@/components/ui/card";
+import ActionMenu from "@/features/dashboard/components/action-menu";
+import SummaryCards from "@/features/dashboard/components/sumary-cards";
 
 export default function Home() {
   return (
-    <div className="container mx-auto">
+    <main className="container mx-auto">
       <h1 className="text-center text-2xl">Tang Pai Nai</h1>
-      <div>
-        <Card></Card>
-      </div>
-    </div>
+      <SummaryCards income={100} expenses={20} />
+      <ActionMenu />
+    </main>
   );
 }
