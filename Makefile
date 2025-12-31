@@ -14,7 +14,7 @@ help:
 
 # สร้าง Images
 build:
-	docker compose build
+	docker compose build 
 
 # รันระบบ
 up:

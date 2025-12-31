@@ -8,9 +8,5 @@ RUN pnpm install
 
 COPY . .
 
-# สำคัญมากสำหรับ hot reload ใน Docker
-ENV CHOKIDAR_USEPOLLING=true
-ENV WATCHPACK_POLLING=true
-
 EXPOSE 3000
 CMD ["pnpm", "dev"]

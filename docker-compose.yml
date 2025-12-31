@@ -2,20 +2,16 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile.dev
     container_name: nest_api
     ports:
-      - "3001:4000"
+      - "4000:4000"
     volumes:
       - ./backend:/app
       - /app/node_modules
-    environment:
-      PORT: 4000
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
     container_name: next_web
     ports:
       - "3000:3000"
@@ -23,9 +19,10 @@ services:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      NEXT_PUBLIC_API_URL: ${INTERNAL_API_URL}
-      INTERNAL_API_URL: ${INTERNAL_API_URL}
       CHOKIDAR_USEPOLLING: true
       WATCHPACK_POLLING: true
     depends_on:
       - backend
+volumes:
+  data: # กำหนดชื่อ volume ที่ต้องการจะสร้าง
+    driver: local
